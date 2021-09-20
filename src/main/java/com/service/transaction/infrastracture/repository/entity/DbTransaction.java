@@ -1,17 +1,19 @@
-package com.service.transaction.domain.model;
+package com.service.transaction.infrastracture.repository.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-public class Transaction {
+@Entity
+public class DbTransaction {
 
-    @NotBlank
+    @Id
     private String iban;
 
     private String reference;
-    private StatusEnum status;
+    private String status;
     private BigDecimal amount;
     private BigDecimal fee;
     private LocalDate date;
@@ -30,6 +32,14 @@ public class Transaction {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public BigDecimal getAmount() {
@@ -54,13 +64,5 @@ public class Transaction {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public StatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusEnum status) {
-        this.status = status;
     }
 }
