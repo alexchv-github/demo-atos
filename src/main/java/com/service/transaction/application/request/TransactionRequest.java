@@ -4,15 +4,21 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class TransactionRequest {
 
     @NotBlank
+    @Size(min = 24, max = 24)
     private String iban;
+
+    @NotNull
+    private BigDecimal amount;
 
     private String reference;
     private String status;
-    private BigDecimal amount;
+    private String description;
     private BigDecimal fee;
     private LocalDate date;
 
@@ -62,5 +68,13 @@ public class TransactionRequest {
 
     public void setIban(String iban) {
         this.iban = iban;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

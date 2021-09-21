@@ -1,12 +1,12 @@
 package com.service.transaction.infrastracture.repository;
 
 import com.service.transaction.domain.model.Account;
-import com.service.transaction.domain.repository.OrderAccount;
+import com.service.transaction.domain.repository.AccountRepository;
 import com.service.transaction.infrastracture.repository.mapper.AccountMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class H2AccountRepository implements OrderAccount {
+public class H2AccountRepository implements AccountRepository {
 
     private H2AccountRepositoryCrud repositoryCrud;
     private AccountMapper mapper;
@@ -20,11 +20,5 @@ public class H2AccountRepository implements OrderAccount {
     public Account findByIban(String iban) {
         return mapper.dbAccountToAccount(repositoryCrud.findByIban(iban));
     }
-
-    @Override
-    public void modifyBalance(Account account) {
-        repositoryCrud.save(mapper.accountToDbAccount(account));
-    }
-
 
 }

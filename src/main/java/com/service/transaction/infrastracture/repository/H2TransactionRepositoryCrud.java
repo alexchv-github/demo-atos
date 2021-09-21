@@ -11,6 +11,7 @@ public interface H2TransactionRepositoryCrud extends CrudRepository<DbTransactio
 
     DbTransaction getByReference(String reference);
 
-    List<DbTransaction> getByIban(String iban);
+    List<DbTransaction> getByIbanOrderByDateAsc(String iban);
 
+    List<DbTransaction> getByIbanOrderByDateDesc(String iban);
 }

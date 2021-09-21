@@ -3,14 +3,11 @@ package com.service.transaction.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotBlank;
-
 public class Transaction {
 
-    @NotBlank
     private String iban;
-
     private String reference;
+    private String description;
     private StatusEnum status;
     private BigDecimal amount;
     private BigDecimal fee;
@@ -62,5 +59,13 @@ public class Transaction {
 
     public void setStatus(StatusEnum status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

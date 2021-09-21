@@ -4,16 +4,21 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class DbTransaction {
 
     @Id
-    private String iban;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
+    private String iban;
     private String reference;
     private String status;
+    private String description;
     private BigDecimal amount;
     private BigDecimal fee;
     private LocalDate date;
@@ -65,4 +70,22 @@ public class DbTransaction {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
 }

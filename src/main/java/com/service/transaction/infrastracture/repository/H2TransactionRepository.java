@@ -3,12 +3,12 @@ package com.service.transaction.infrastracture.repository;
 import java.util.List;
 
 import com.service.transaction.domain.model.Transaction;
-import com.service.transaction.domain.repository.OrderTransaction;
+import com.service.transaction.domain.repository.TransactionRepository;
 import com.service.transaction.infrastracture.repository.mapper.TransactionMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class H2TransactionRepository implements OrderTransaction {
+public class H2TransactionRepository implements TransactionRepository {
 
     private H2TransactionRepositoryCrud repositoryCrud;
     private TransactionMapper mapper;
@@ -29,8 +29,11 @@ public class H2TransactionRepository implements OrderTransaction {
     }
 
     @Override
-    public List<Transaction> searchTransactionByIban(String iban) {
-        return mapper.dbTransactionsToTransactions(repositoryCrud.getByIban(iban));
+    public List<Transaction> searchTransactionByIban(String iban, String order) {
+        if (order.equalsIgnoreCase("DESC"))
+            return mapper.dbTransactionsToTransactions(repositoryCrud.getByIbanOrderByDateDesc(iban));
+
+        return mapper.dbTransactionsToTransactions(repositoryCrud.getByIbanOrderByDateAsc(iban));
     }
 
     @Override
