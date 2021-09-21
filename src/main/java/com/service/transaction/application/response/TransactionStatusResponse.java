@@ -1,11 +1,16 @@
 package com.service.transaction.application.response;
 
+import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransactionStatusResponse {
 
     private String reference;
     private String status;
-    private String amount;
-    private String fee;
+    private BigDecimal amount;
+    private BigDecimal fee;
 
     public String getReference() {
         return reference;
@@ -23,19 +28,19 @@ public class TransactionStatusResponse {
         this.status = status;
     }
 
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public String getFee() {
+    public BigDecimal getFee() {
         return fee;
     }
 
-    public void setFee(String fee) {
+    public void setFee(BigDecimal fee) {
         this.fee = fee;
     }
 }

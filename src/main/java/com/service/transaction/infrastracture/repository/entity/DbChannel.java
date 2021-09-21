@@ -1,39 +1,35 @@
 package com.service.transaction.infrastracture.repository.entity;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 
 @Entity
-public class DbAccount {
+public class DbChannel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
-    private String iban;
+    private String channel;
 
-    private BigDecimal balance;
+    private Boolean subtract;
 
-    public String getIban() {
-        return iban;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setIban(String iban) {
-        this.iban = iban;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public Boolean getSubtract() {
+        return subtract;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setSubtract(Boolean subtract) {
+        this.subtract = subtract;
     }
 
     public Long getId() {

@@ -3,12 +3,12 @@ package com.service.transaction.infrastracture.repository;
 import java.util.List;
 
 import com.service.transaction.domain.model.Transaction;
-import com.service.transaction.domain.repository.OrderTransaction;
+import com.service.transaction.domain.repository.TransactionRepository;
 import com.service.transaction.infrastracture.repository.mapper.TransactionMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class H2TransactionRepository implements OrderTransaction {
+public class H2TransactionRepository implements TransactionRepository {
 
     private H2TransactionRepositoryCrud repositoryCrud;
     private TransactionMapper mapper;

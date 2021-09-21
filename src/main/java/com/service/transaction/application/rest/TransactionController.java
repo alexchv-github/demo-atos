@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.service.transaction.application.request.TransactionRequest;
 import com.service.transaction.application.response.TransactionStatusResponse;
+import com.service.transaction.domain.service.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TransactionController {
 
-    @GetMapping("/transactions/{channel}/{reference}")
-    TransactionStatusResponse transactionStatus(@PathVariable String channel, @PathVariable @NotBlank String reference){
-        return null;
+    private TransactionService service;
+
+    public TransactionController(TransactionService service) {
+        this.service = service;
     }
 
-    @GetMapping("/transactions/{iban}/{sort}")
+    @GetMapping("/transactions/{channel}/{reference}")
+    TransactionStatusResponse transactionStatus(@PathVariable String channel, @PathVariable @NotBlank String reference){
+        return service.getTransactionStatus(channel, reference);
+    }
+
+    @GetMapping("/transactions/{iban}")
     TransactionStatusResponse getTransactions(@PathVariable String iban, @PathVariable String sort){
         return null;
     }
