@@ -3,11 +3,9 @@ package com.service.transaction;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.service.transaction.domain.model.ChannelEnum;
 import com.service.transaction.domain.model.StatusEnum;
 import com.service.transaction.infrastracture.repository.H2ChannelRepositoryCrud;
 import com.service.transaction.infrastracture.repository.H2TransactionRepositoryCrud;
-import com.service.transaction.infrastracture.repository.entity.DbChannel;
 import com.service.transaction.infrastracture.repository.entity.DbTransaction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +42,7 @@ public class TransactionTests {
         final String referenceResponse = "XXXXXXX";
         final String statusResponse = "INVALID";
 
-        mvc.perform(get("/transactions/CLIENT/XXXXXXX"))
+        mvc.perform(get("/transactions/status/CLIENT/XXXXXXX"))
                 .andExpect(jsonPath("$.reference", is(referenceResponse)))
                 .andExpect(jsonPath("$.status", is(statusResponse)));
     }
@@ -54,7 +52,7 @@ public class TransactionTests {
         final String referenceResponse = "XXXXXXX";
         final String statusResponse = "INVALID";
 
-        mvc.perform(get("/transactions/ATM/XXXXXXX"))
+        mvc.perform(get("/transactions/status/ATM/XXXXXXX"))
                 .andExpect(jsonPath("$.reference", is(referenceResponse)))
                 .andExpect(jsonPath("$.status", is(statusResponse)));
     }
@@ -64,7 +62,7 @@ public class TransactionTests {
         final String referenceResponse = "XXXXXXX";
         final String statusResponse = "INVALID";
 
-        mvc.perform(get("/transactions/INTERNAL/XXXXXXX"))
+        mvc.perform(get("/transactions/status/INTERNAL/XXXXXXX"))
                 .andExpect(jsonPath("$.reference", is(referenceResponse)))
                 .andExpect(jsonPath("$.status", is(statusResponse)));
     }
@@ -81,13 +79,7 @@ public class TransactionTests {
         transaction.setStatus(StatusEnum.SETTLED.name());
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.CLIENT.name());
-        channel.setSubtract(Boolean.TRUE);
-        h2ChannelRepositoryCrud.save(channel);
-
-
-        mvc.perform(get("/transactions/CLIENT/12345"))
+        mvc.perform(get("/transactions/status/CLIENT/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.SETTLED.name())))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().subtract(transaction.getFee()).doubleValue())));
     }
@@ -104,12 +96,7 @@ public class TransactionTests {
         transaction.setStatus(StatusEnum.SETTLED.name());
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.ATM.name());
-        channel.setSubtract(Boolean.TRUE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/ATM/12345"))
+        mvc.perform(get("/transactions/status/ATM/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.SETTLED.name())))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().subtract(transaction.getFee()).doubleValue())));
     }
@@ -126,12 +113,7 @@ public class TransactionTests {
         transaction.setStatus(StatusEnum.SETTLED.name());
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.INTERNAL.name());
-        channel.setSubtract(Boolean.FALSE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/INTERNAL/12345"))
+        mvc.perform(get("/transactions/status/INTERNAL/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.SETTLED.name())))
                 .andExpect(jsonPath("$.reference", is("12345")))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().doubleValue())))
@@ -150,12 +132,7 @@ public class TransactionTests {
         transaction.setDescription("");
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.CLIENT.name());
-        channel.setSubtract(Boolean.TRUE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/CLIENT/12345"))
+        mvc.perform(get("/transactions/status/CLIENT/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.PENDING.name())))
                 .andExpect(jsonPath("$.reference", is("12345")))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().subtract(transaction.getFee()).doubleValue())));
@@ -173,12 +150,7 @@ public class TransactionTests {
         transaction.setStatus(StatusEnum.PENDING.name());
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.ATM.name());
-        channel.setSubtract(Boolean.TRUE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/ATM/12345"))
+        mvc.perform(get("/transactions/status/ATM/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.PENDING.name())))
                 .andExpect(jsonPath("$.reference", is("12345")))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().subtract(transaction.getFee()).doubleValue())));
@@ -196,12 +168,7 @@ public class TransactionTests {
         transaction.setStatus(StatusEnum.PENDING.name());
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.INTERNAL.name());
-        channel.setSubtract(Boolean.FALSE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/INTERNAL/12345"))
+        mvc.perform(get("/transactions/status/INTERNAL/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.PENDING.name())))
                 .andExpect(jsonPath("$.reference", is("12345")))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().doubleValue())))
@@ -220,12 +187,7 @@ public class TransactionTests {
         transaction.setDescription("");
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.CLIENT.name());
-        channel.setSubtract(Boolean.TRUE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/CLIENT/12345"))
+        mvc.perform(get("/transactions/status/CLIENT/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.FUTURE.name())))
                 .andExpect(jsonPath("$.reference", is("12345")))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().subtract(transaction.getFee()).doubleValue())));
@@ -243,12 +205,7 @@ public class TransactionTests {
         transaction.setDescription("");
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.ATM.name());
-        channel.setSubtract(Boolean.TRUE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/ATM/12345"))
+        mvc.perform(get("/transactions/status/ATM/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.FUTURE.name())))
                 .andExpect(jsonPath("$.reference", is("12345")))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().subtract(transaction.getFee()).doubleValue())));
@@ -266,12 +223,7 @@ public class TransactionTests {
         transaction.setDescription("");
         h2TransactionRepositoryCrud.save(transaction);
 
-        DbChannel channel = new DbChannel();
-        channel.setChannel(ChannelEnum.INTERNAL.name());
-        channel.setSubtract(Boolean.FALSE);
-        h2ChannelRepositoryCrud.save(channel);
-
-        mvc.perform(get("/transactions/INTERNAL/12345"))
+        mvc.perform(get("/transactions/status/INTERNAL/12345"))
                 .andExpect(jsonPath("$.status", is(StatusEnum.FUTURE.name())))
                 .andExpect(jsonPath("$.reference", is("12345")))
                 .andExpect(jsonPath("$.amount", is(transaction.getAmount().doubleValue())))

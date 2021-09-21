@@ -10,7 +10,7 @@ public interface TransactionRepository {
 
     Transaction searchTransactionByReference(String reference);
 
-    List<Transaction> searchTransactionByIban(String iban);
+    List<Transaction> searchTransactionByIban(String iban, String order);
 
     Transaction searchTransactionStatus(String reference);
 

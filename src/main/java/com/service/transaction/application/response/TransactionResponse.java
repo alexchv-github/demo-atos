@@ -1,34 +1,15 @@
-package com.service.transaction.application.request;
+package com.service.transaction.application.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+public class TransactionResponse {
 
-public class TransactionRequest {
-
-    @NotBlank
-    @Size(min = 24, max = 24)
-    private String iban;
-
-    @NotNull
-    private BigDecimal amount;
-
-    private String reference;
     private String status;
     private String description;
+    private BigDecimal amount;
     private BigDecimal fee;
     private LocalDate date;
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
 
     public String getStatus() {
         return status;
@@ -60,14 +41,6 @@ public class TransactionRequest {
 
     public void setFee(BigDecimal fee) {
         this.fee = fee;
-    }
-
-    public String getIban() {
-        return iban;
-    }
-
-    public void setIban(String iban) {
-        this.iban = iban;
     }
 
     public String getDescription() {

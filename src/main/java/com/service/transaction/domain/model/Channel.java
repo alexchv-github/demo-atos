@@ -1,20 +1,16 @@
 package com.service.transaction.domain.model;
 
-import javax.validation.constraints.NotBlank;
-
 public class Channel {
 
-    @NotBlank
-    private String channel;
-
+    private String channelName;
     private Boolean subtract;
 
-    public String getChannel() {
-        return channel;
+    public String getChannelName() {
+        return channelName;
     }
 
-    public void setChannel(String channel) {
-        this.channel = channel;
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
     }
 
     public Boolean getSubtract() {

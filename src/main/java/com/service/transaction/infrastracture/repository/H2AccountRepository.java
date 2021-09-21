@@ -21,10 +21,4 @@ public class H2AccountRepository implements AccountRepository {
         return mapper.dbAccountToAccount(repositoryCrud.findByIban(iban));
     }
 
-    @Override
-    public void modifyBalance(Account account) {
-        repositoryCrud.save(mapper.accountToDbAccount(account));
-    }
-
-
 }

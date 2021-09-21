@@ -29,8 +29,11 @@ public class H2TransactionRepository implements TransactionRepository {
     }
 
     @Override
-    public List<Transaction> searchTransactionByIban(String iban) {
-        return mapper.dbTransactionsToTransactions(repositoryCrud.getByIban(iban));
+    public List<Transaction> searchTransactionByIban(String iban, String order) {
+        if (order.equalsIgnoreCase("DESC"))
+            return mapper.dbTransactionsToTransactions(repositoryCrud.getByIbanOrderByDateDesc(iban));
+
+        return mapper.dbTransactionsToTransactions(repositoryCrud.getByIbanOrderByDateAsc(iban));
     }
 
     @Override

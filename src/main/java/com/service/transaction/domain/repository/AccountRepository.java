@@ -6,6 +6,4 @@ public interface AccountRepository {
 
     Account findByIban(String iban);
 
-    void modifyBalance(Account account);
-
 }
